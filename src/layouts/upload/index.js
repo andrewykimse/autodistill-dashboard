@@ -18,36 +18,33 @@ import Grid from "@mui/material/Grid";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
+// import MDDropzone from "components/MDDropzone";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
-import { useDropzone } from "react-dropzone";
+// TODO: create stylized MDDropzone
+import Dropzone from "react-dropzone";
+
 function Upload(props) {
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
-  const files = acceptedFiles.map((file) => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
-  ));
-
-  // TODO: Change layout to match other pages
   return (
-    <section className="container">
-      <div {...getRootProps({ className: "dropzone" })}>
-        <input {...getInputProps()} />
-        {/* <p>Drag 'n' drop some files here, or click to select files</p> */}
-      </div>
-      <aside>
-        <h4>Files</h4>
-        <ul>{files}</ul>
-      </aside>
-    </section>
+    <DashboardLayout>
+      <DashboardNavbar />
+      <MDBox pt={6} pb={3}></MDBox>
+      <Dropzone onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
+        {({ getRootProps, getInputProps }) => (
+          <section>
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              <p>Drop Files Here</p>
+            </div>
+          </section>
+        )}
+      </Dropzone>
+      <Footer />
+    </DashboardLayout>
   );
 }
 
